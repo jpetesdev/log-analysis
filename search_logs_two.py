@@ -77,7 +77,7 @@ with open("./syslog.log", "r") as log:
 #print(sorted_errors)
 
 # Takes the sorted dictionaries that are now lists with tuples in them and createds new csv files.
-with open("/home/netrunner/Documents/Google_IT_Automation/Projects/errors_message.csv", "w") as file:
+with open("/home/netrunner/Documents/Google_IT_Automation/Projects/errors_message.csv", "w") as file: # You will need to use your specific path
     index = 0
     fieldnames = ["Error", "Count"]
     writer = csv.DictWriter(file, fieldnames=fieldnames)
