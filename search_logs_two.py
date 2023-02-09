@@ -26,6 +26,7 @@ username_regex = r"\([\w.\w]*\)"
 
 #Open log file and use the regexs to find matches
 #Just looking for ERROR and INFO
+#Creates a raw dictionary that we will use to then make new CSV files later. The dictionary just makes and entry for users and the number of INFO and ERRORS for each.
 with open("./syslog.log", "r") as log:
     log_list = log.readlines()
     for entry in log_list:
@@ -86,6 +87,7 @@ with open("/home/netrunner/Documents/Google_IT_Automation/Projects/errors_messag
     writer = csv.DictWriter(file, fieldnames=fieldnames)
     writer.writeheader()
     for error in sorted_errors:
+        #Creates a new CSV file that takes each error message that occurs in the syslog file and then adds the number of times it occurs. 
         writer.writerow({"Error": sorted_errors[index][0], "Count": sorted_errors[index][1]})
         index = index + 1
 
@@ -95,6 +97,7 @@ with open("/home/netrunner/Documents/Google_IT_Automation/Projects/user_statisti
     writer = csv.DictWriter(file, fieldnames=fieldnames)
     writer.writeheader()
     for stats in sorted_user_list:
+        #Creates the new CSV file with each user and the number of INFO and ERROR messages they generated. 
         writer.writerow({"Username": sorted_user_list[index][0], "INFO": sorted_user_list[index][1]["INFO"], "ERROR": sorted_user_list[index][1]["ERROR"]})
         index = index + 1
 
