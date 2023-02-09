@@ -25,6 +25,7 @@ full_info_regex = r"INFO [\w' \[#\]]* \([\w.\w]*\)"
 username_regex = r"\([\w.\w]*\)"
 
 #Open log file and use the regexs to find matches
+#Just looking for ERROR and INFO
 with open("./syslog.log", "r") as log:
     log_list = log.readlines()
     for entry in log_list:
@@ -34,6 +35,7 @@ with open("./syslog.log", "r") as log:
         if full_error_match != None:
             error_text = full_error_match.group(0)
             username = re.search(username_regex, error_text).group(0).strip("()")
+            #This portion below will take the User and add them if they are not in the list and increment the error count.
             if username not in user_count.keys():
                 user_count[username] = {"ERROR": 1, "INFO": 0}
             else:
@@ -41,6 +43,7 @@ with open("./syslog.log", "r") as log:
         if full_info_match != None:
             info_text = full_info_match.group(0)
             username = re.search(username_regex, info_text).group(0).strip("()")
+            #This portion will take the User and add them if they are not in the list and increment the info count.
             if username not in user_count.keys():
                 user_count[username] = {"ERROR": 0, "INFO": 1}
             else:
